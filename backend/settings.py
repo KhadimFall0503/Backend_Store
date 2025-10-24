@@ -27,13 +27,24 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'api',
+    'djoser',
     'rest_framework',
+    'rest_framework.authtoken',
     'corsheaders',
+    'compte',
 ]
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny',
-    ]
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+}
+SIMPLE_JWT = {
+    'AUTH_HEADER_TYPES': ('JWT',),
 }
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_ORIGINS = [

@@ -1,6 +1,6 @@
 from rest_framework import viewsets
-from .models import Produits, Category, Tendances
-from .serializers import ProduitsSerializer, CategorySerializer, TendancesSerializer
+from .models import Produits, Category, Tendances, Contact
+from .serializers import ProduitsSerializer, CategorySerializer, TendancesSerializer, ContactSerializer
 
 class ProduitsViewSet(viewsets.ModelViewSet):
     serializer_class = ProduitsSerializer
@@ -26,3 +26,7 @@ class CategoryViewSet(viewsets.ModelViewSet):
 class TendancesViewSet(viewsets.ModelViewSet):
     queryset = Tendances.objects.all()
     serializer_class = TendancesSerializer
+    
+class ContactViewSet(viewsets.ModelViewSet):
+    queryset = Contact.objects.all()
+    serializer_class = ContactSerializer
