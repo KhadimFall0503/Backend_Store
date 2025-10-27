@@ -32,17 +32,44 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'corsheaders',
     'compte',
+    'django_filters'
 ]
 REST_FRAMEWORK = {
+    # Permissions par défaut
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny',
     ],
+
+    # Authentifications par défaut
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-
         'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
     ],
+
+    # Pagination personnalisée
+# 'DEFAULT_PAGINATION_CLASS': 'api.pagination.CustomPagination',
+   # 'PAGE_SIZE': 10,
+
+    # 🔍 Ajout du système de filtrage global
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend',
+        'rest_framework.filters.SearchFilter',
+        'rest_framework.filters.OrderingFilter',
+    ],
+
+    # ⏱️ Limitation de débit (throttling)
+    'DEFAULT_THROTTLE_CLASSES': [
+        'api.throttling.CustomUserRateThrottle',
+        'api.throttling.CustomAnonRateThrottle',
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'custom_user': '500/day',
+        'custom_anon': '100/day',
+    },
 }
+
+
 SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('JWT',),
 }
